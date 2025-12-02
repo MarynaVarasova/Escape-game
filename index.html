@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JIRA Escape Room</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">Interactive Challenge</p>
+        <h1>JIRA Escape Room</h1>
+        <p class="subtitle">
+          Admins craft the riddles. Agents solve them one by one to unlock the
+          final exit door.
+        </p>
+      </header>
+
+      <section class="panels">
+        <section class="panel admin-panel" aria-labelledby="admin-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Control Room</p>
+              <h2 id="admin-title">Admin Console</h2>
+            </div>
+            <button id="resetDefaultsBtn" class="ghost-btn" type="button">
+              Reset to defaults
+            </button>
+          </div>
+
+          <form id="questionForm" class="card">
+            <label>
+              Question prompt
+              <textarea
+                name="question"
+                rows="3"
+                placeholder="Describe the puzzle the player must solve..."
+                required
+              ></textarea>
+            </label>
+
+            <label>
+              Correct answer
+              <input
+                name="answer"
+                type="text"
+                placeholder="Exact answer players must enter"
+                required
+              />
+            </label>
+
+            <label>
+              Optional hint
+              <input
+                name="hint"
+                type="text"
+                placeholder="E.g. 'Think about sprint reports...'"
+              />
+            </label>
+
+            <button type="submit" class="primary-btn">Add question</button>
+          </form>
+
+          <div class="question-list card">
+            <header>
+              <h3>Stored riddles</h3>
+              <p class="muted" id="questionCount">0 loaded</p>
+            </header>
+            <ul id="questionsContainer"></ul>
+            <p class="muted tiny">
+              Questions are saved locally in this browser so you can prep the
+              room before players arrive.
+            </p>
+          </div>
+        </section>
+
+        <section class="panel player-panel" aria-labelledby="player-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Escape Sequence</p>
+              <h2 id="player-title">Player Console</h2>
+            </div>
+            <div class="progress-shell">
+              <div id="progressBar"></div>
+            </div>
+          </div>
+
+          <article class="card player-card">
+            <p class="muted tiny" id="questionProgressLabel">No questions yet</p>
+            <h3 id="currentQuestion">Waiting for the control room...</h3>
+            <p id="currentHint" class="hint muted"></p>
+            <form id="answerForm" class="player-inputs">
+              <label for="playerAnswer">Your answer</label>
+              <div class="input-row">
+                <input
+                  id="playerAnswer"
+                  type="text"
+                  name="playerAnswer"
+                  placeholder="Type your solution"
+                  autocomplete="off"
+                  required
+                />
+                <button type="submit" class="primary-btn">Submit</button>
+              </div>
+            </form>
+            <p id="feedback" class="feedback" role="status"></p>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <section
+      id="successOverlay"
+      class="success-overlay"
+      aria-live="polite"
+      hidden
+    >
+      <div class="success-card">
+        <p class="eyebrow">Extraction Successful</p>
+        <h2>You escaped the JIRA labyrinth!</h2>
+        <p>
+          Every ticket cracked, every riddle solved. Take a screenshot, then let
+          the next squad step in.
+        </p>
+        <button id="playAgainBtn" class="ghost-btn">Run simulation again</button>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
